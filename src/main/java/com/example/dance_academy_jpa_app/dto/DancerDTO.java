@@ -1,14 +1,12 @@
 package com.example.dance_academy_jpa_app.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DancerDTO {
 
     private Integer id;
