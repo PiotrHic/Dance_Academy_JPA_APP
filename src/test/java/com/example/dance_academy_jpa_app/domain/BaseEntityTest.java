@@ -1,4 +1,4 @@
-package com.example.dance_academy_jpa_app;
+package com.example.dance_academy_jpa_app.domain;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 public class BaseEntityTest {
 
-//    BaseEntity baseEmtity = BaseEntity
-//            .builder()
-//            .createdAt(LocalDateTime.MIN)
-//            .lastModifiedAt(LocalDateTime.MIN)
-//            .createdBy("test")
-//            .lastModifiedBy("test")
-//            .build();
+    BaseEntity baseEmtity = BaseEntity
+            .builder()
+            .createdAt(LocalDateTime.MIN)
+            .lastModifiedAt(LocalDateTime.MIN)
+            .createdBy("test")
+            .lastModifiedBy("test")
+            .build();
 
     @Test
     public void setCreationDate(){
