@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class DancerTest {
 
-    // Test for id, name, age, sex
+    // Tests for id, name, age, sex
 
     Dancer dancer = Dancer
             .builder()
@@ -78,7 +78,7 @@ public class DancerTest {
     }
 
     @Test
-    public void setName(){
+    public void setSex(){
         // given
         String expected = "name";
         // when
@@ -88,7 +88,7 @@ public class DancerTest {
     }
 
     @Test
-    public void getName(){
+    public void getSex(){
         // given
         String expected = "name";
         // when
