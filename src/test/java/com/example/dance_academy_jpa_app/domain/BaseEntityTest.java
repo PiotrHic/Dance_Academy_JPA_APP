@@ -58,7 +58,7 @@ public class BaseEntityTest {
     @Test
     public void setAuthor(){
         // given
-        String expected = "name";
+        String expected = "name1";
         // when
         baseEmtity.setCreatedBy(expected);
         // then
@@ -68,7 +68,7 @@ public class BaseEntityTest {
     @Test
     public void getAuthor(){
         // given
-        String expected = "name";
+        String expected = "name2";
         // when
         baseEmtity.setCreatedBy(expected);
         // then
@@ -78,7 +78,7 @@ public class BaseEntityTest {
     @Test
     public void setModifier(){
         // given
-        String expected = "name";
+        String expected = "name3";
         // when
         baseEmtity.setLastModifiedBy(expected);
         // then
@@ -88,7 +88,7 @@ public class BaseEntityTest {
     @Test
     public void getModifier(){
         // given
-        String expected = "name";
+        String expected = "name4";
         // when
         baseEmtity.setLastModifiedBy(expected);
         // then

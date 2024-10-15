@@ -50,7 +50,7 @@ public class DancerTest {
     @Test
     public void getName(){
         // given
-        String expected = "name";
+        String expected = "name1";
         // when
         dancer.setName(expected);
         // then
@@ -80,7 +80,7 @@ public class DancerTest {
     @Test
     public void setSex(){
         // given
-        String expected = "name";
+        String expected = "Male";
         // when
         dancer.setSex(expected);
         // then
@@ -90,7 +90,7 @@ public class DancerTest {
     @Test
     public void getSex(){
         // given
-        String expected = "name";
+        String expected = "Female";
         // when
         dancer.setSex(expected);
         // then
