@@ -2,7 +2,9 @@ package com.example.dance_academy_jpa_app.mapper;
 
 import com.example.dance_academy_jpa_app.domain.Dancer;
 import com.example.dance_academy_jpa_app.dto.DancerDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DancerMapper {
 
     public DancerDTO dancerToDancerDTO(Dancer dancer){

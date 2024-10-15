@@ -4,7 +4,9 @@ import com.example.dance_academy_jpa_app.domain.DanceInstructor;
 import com.example.dance_academy_jpa_app.domain.Dancer;
 import com.example.dance_academy_jpa_app.dto.DanceInstructorDTO;
 import com.example.dance_academy_jpa_app.dto.DancerDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DanceInstructorMapper {
 
     public DanceInstructorDTO danceInstructorToDanceInstructorDTO(DanceInstructor danceInstructor){
