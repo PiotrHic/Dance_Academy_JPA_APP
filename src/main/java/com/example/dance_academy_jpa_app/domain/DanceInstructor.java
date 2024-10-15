@@ -26,4 +26,8 @@ public class DanceInstructor extends BaseEntity{
 
     @Column(name = "Years_Of_Experience")
     private int yearsOfExperience;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dance_course_id")
+    private DanceCourse danceCourse;
 }

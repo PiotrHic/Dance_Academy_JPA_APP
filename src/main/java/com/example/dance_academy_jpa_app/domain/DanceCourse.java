@@ -39,4 +39,7 @@ public class DanceCourse extends BaseEntity{
             )
     )
     private List<Dancer> dancers;
+
+    @OneToMany(mappedBy = "danceCourse", fetch = FetchType.EAGER)
+    private List<DanceInstructor> danceInstructors;
 }

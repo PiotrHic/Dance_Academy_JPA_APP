@@ -21,7 +21,7 @@ public class CourseTopic extends BaseEntity{
     @Column(name = "course_topic_id",nullable = false)
     private Integer id;
 
-    @Column(name = "course_topic_id", nullable = false, unique = true)
+    @Column(name = "course_topic_name", nullable = false, unique = true)
     private String name;
 
 }
