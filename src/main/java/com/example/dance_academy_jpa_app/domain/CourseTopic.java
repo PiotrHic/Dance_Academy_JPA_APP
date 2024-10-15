@@ -24,4 +24,7 @@ public class CourseTopic extends BaseEntity{
     @Column(name = "course_topic_name", nullable = false, unique = true)
     private String name;
 
+    @OneToOne
+    @JoinColumn(name = "dance_course_id")
+    private DanceCourse danceCourse;
 }

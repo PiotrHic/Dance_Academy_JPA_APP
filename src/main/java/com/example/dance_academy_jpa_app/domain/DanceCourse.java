@@ -42,4 +42,8 @@ public class DanceCourse extends BaseEntity{
 
     @OneToMany(mappedBy = "danceCourse", fetch = FetchType.EAGER)
     private List<DanceInstructor> danceInstructors;
+
+    @OneToOne
+    @JoinColumn(name = "course_topic_id")
+    private CourseTopic courseTopic;
 }
