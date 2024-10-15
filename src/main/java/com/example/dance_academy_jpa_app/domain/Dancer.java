@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -30,4 +32,8 @@ public class Dancer {
 
     @Column(name = "dancer_sex", updatable=false)
     private String sex;
+
+
+    @ManyToMany(mappedBy = "dancers")
+    private List<DanceCourse> danceCourses;
 }
