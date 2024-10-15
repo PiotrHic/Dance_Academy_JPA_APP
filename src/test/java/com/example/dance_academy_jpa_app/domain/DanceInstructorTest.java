@@ -61,7 +61,7 @@ public class DanceInstructorTest {
         // when
         instructor.setYearsOfExperience(expected);
         // then
-        Assertions.assertEquals(expected, instructor.getId());
+        Assertions.assertEquals(expected, instructor.getYearsOfExperience());
     }
 
     @Test
