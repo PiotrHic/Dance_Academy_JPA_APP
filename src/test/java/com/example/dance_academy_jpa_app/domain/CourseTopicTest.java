@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class CourseTopicTest {
 
-    DanceTopic danceTopic = DanceTopic.builder()
+    CourseTopic danceTopic = CourseTopic.builder()
             .id(1)
             .name("test").build();
     @Test
