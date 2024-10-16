@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Table(name = "Course_Topic_Table")
 @Entity
+@Inheritance
 public class CourseTopic extends BaseEntity{
 
     @Id

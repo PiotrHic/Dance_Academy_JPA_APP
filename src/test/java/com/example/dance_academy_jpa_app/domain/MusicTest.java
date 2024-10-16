@@ -16,7 +16,7 @@ public class MusicTest {
         // when
         music.setNameOfTheSong(expected);
         // then
-        Assertions.assertEquals(expected, music.getNameOfTheSong);
+        Assertions.assertEquals(expected, music.getNameOfTheSong());
     }
 
     @Test
@@ -26,6 +26,6 @@ public class MusicTest {
         // when
         music.setNameOfTheSong(expected);
         // then
-        Assertions.assertEquals(expected, music.getNameOfTheSong);
+        Assertions.assertEquals(expected, music.getNameOfTheSong());
     }
 }
