@@ -1,7 +1,6 @@
 package com.example.dance_academy_jpa_app.repository;
 
-import com.example.dance_academy_jpa_app.domain.DanceCourse;
-import com.example.dance_academy_jpa_app.repositories.DanceCourseRepository;
+import com.example.dance_academy_jpa_app.domain.CourseTopic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,12 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
-public class DanceCourseRepositoryTest {
+public class CourseTopicRepositoryTests {
 
     @Autowired
-    DanceCourseRepository danceCourseRepository;
+    CourseTopicRepository courseTopicRepository;
 
-    DanceCourse first = DanceCourse.builder()
+    CourseTopic first = CourseTopic.builder()
             .name("test1")
             .createdAt(LocalDateTime.MIN)
             .lastModifiedAt(LocalDateTime.MIN)
@@ -25,7 +24,7 @@ public class DanceCourseRepositoryTest {
             .lastModifiedBy("test1")
             .build();
 
-    DanceCourse second = DanceCourse.builder()
+    CourseTopic second = CourseTopic.builder()
             .name("test2")
             .createdAt(LocalDateTime.MAX)
             .lastModifiedAt(LocalDateTime.MAX)
@@ -35,94 +34,95 @@ public class DanceCourseRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        danceCourseRepository.deleteAll();
+        courseTopicRepository.deleteAll();
     }
 
-
     @Test
-    void createDanceCourse(){
-        long count = danceCourseRepository.count();
+    void createCourseTopic(){
+
+        long count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
 
-        danceCourseRepository.save(first);
+        courseTopicRepository.save(first);
 
-        count = danceCourseRepository.count();
+        count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(1);
     }
 
     @Test
-    void getAllDanceCourses(){
-        long count = danceCourseRepository.count();
+    void getAllCourseTopics(){
+
+        long count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
 
-        danceCourseRepository.save(first);
-        danceCourseRepository.save(second);
+        courseTopicRepository.save(first);
+        courseTopicRepository.save(second);
 
-        count = danceCourseRepository.findAll().size();
+        count = courseTopicRepository.findAll().size();
         assertThat(count).isEqualTo(2);
     }
 
     @Test
     void getOneDanceCourseById(){
 
-        long count = danceCourseRepository.count();
+        long count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
 
-        DanceCourse saved = danceCourseRepository.save(first);
+        CourseTopic saved = courseTopicRepository.save(first);
 
-        count = danceCourseRepository.count();
+        count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(1);
 
-        DanceCourse founded = danceCourseRepository.getReferenceById(first.getId());
+        CourseTopic founded = courseTopicRepository.getReferenceById(first.getId());
 
         assertThat(founded.getName()).isEqualTo("test1");
 
     }
 
     @Test
-    void deleteDanceCourseById(){
+    void deleteCourseTopicById(){
 
-        long count = danceCourseRepository.count();
+        long count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
 
-        danceCourseRepository.save(first);
+        courseTopicRepository.save(first);
 
-        count = danceCourseRepository.count();
+        count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(1);
 
-        danceCourseRepository.deleteById(first.getId());
+        courseTopicRepository.deleteById(first.getId());
 
-        count = danceCourseRepository.count();
+        count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
     }
-
 
     @Test
     void deleteAllDanceCoursesId() {
-        long count = danceCourseRepository.count();
+        long count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
 
-        danceCourseRepository.save(first);
-        danceCourseRepository.save(second);
+        courseTopicRepository.save(first);
+        courseTopicRepository.save(second);
 
-        count = danceCourseRepository.count();
+        count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(2);
 
-        danceCourseRepository.deleteAll();
+        courseTopicRepository.deleteAll();
 
-        count = danceCourseRepository.count();
+        count = courseTopicRepository.count();
 
         assertThat(count).isEqualTo(0);
 
     }
+
 }
