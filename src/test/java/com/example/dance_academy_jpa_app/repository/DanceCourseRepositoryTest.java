@@ -1,6 +1,7 @@
 package com.example.dance_academy_jpa_app.repository;
 
 import com.example.dance_academy_jpa_app.domain.DanceCourse;
+import com.example.dance_academy_jpa_app.repositories.DanceCourseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,18 @@ public class DanceCourseRepositoryTest {
 
     DanceCourse first = DanceCourse.builder()
             .name("test1")
+            .createdAt(LocalDateTime.MIN)
+            .lastModifiedAt(LocalDateTime.MIN)
+            .createdBy("test1")
+            .lastModifiedBy("test1")
             .build();
 
     DanceCourse second = DanceCourse.builder()
             .name("test2")
+            .createdAt(LocalDateTime.MAX)
+            .lastModifiedAt(LocalDateTime.MAX)
+            .createdBy("test2")
+            .lastModifiedBy("test2")
             .build();
 
     @BeforeEach
