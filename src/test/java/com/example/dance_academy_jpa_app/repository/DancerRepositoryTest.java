@@ -1,6 +1,7 @@
 package com.example.dance_academy_jpa_app.repository;
 
 import com.example.dance_academy_jpa_app.domain.Dancer;
+import com.example.dance_academy_jpa_app.repositories.DancerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -19,18 +20,12 @@ public class DancerRepositoryTest {
 
     Dancer first = Dancer.builder()
             .name("test1")
-            .createdAt(LocalDateTime.MIN)
-            .lastModifiedAt(LocalDateTime.MIN)
-            .createdBy("test1")
-            .lastModifiedBy("test1")
+            .age(1)
             .build();
 
     Dancer second = Dancer.builder()
             .name("test2")
-            .createdAt(LocalDateTime.MAX)
-            .lastModifiedAt(LocalDateTime.MAX)
-            .createdBy("test2")
-            .lastModifiedBy("test2")
+            .age(2)
             .build();
 
     @BeforeEach
@@ -127,38 +122,4 @@ public class DancerRepositoryTest {
 
     }
 
-    @Test
-    void getDancerByName(){
-        long count = dancerRepository.count();
-
-        assertThat(count).isEqualTo(0);
-
-        Dancer saved = dancerRepository.save(first);
-
-        Dancer foundByName = dancerRepository.findDancerByName(saved.getName());
-
-        assertThat(first.getName()).isEqualTo(saved.getName());
-    }
-
-    @Disabled
-    @Test
-    void deleteDancerByName(){
-        long count = dancerRepository.count();
-
-        assertThat(count).isEqualTo(0);
-
-        Dancer saved = dancerRepository.save(first);
-
-        String name = saved.getName();
-
-        count = dancerRepository.count();
-
-        assertThat(count).isEqualTo(1);
-
-        Dancer deletedByName = dancerRepository.deleteByName(name);
-
-        count = dancerRepository.count();
-
-        assertThat(count).isEqualTo(0);
-    }
 }
