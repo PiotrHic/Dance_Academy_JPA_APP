@@ -1,7 +1,8 @@
 package com.example.dance_academy_jpa_app.repository;
 
-import com.example.dance_school_jpa_app.domain.DanceInstructor;
-import com.example.dance_school_jpa_app.repositories.DanceInstructorRepository;
+
+import com.example.dance_academy_jpa_app.domain.DanceInstructor;
+import com.example.dance_academy_jpa_app.repositories.DanceInstructorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ public class DanceInstructorTest {
 
     DanceInstructor first = DanceInstructor.builder()
             .name("test1")
+            .yearsOfExperience(1)
             .createdAt(LocalDateTime.MIN)
             .lastModifiedAt(LocalDateTime.MIN)
             .createdBy("test1")
@@ -28,8 +30,9 @@ public class DanceInstructorTest {
 
     DanceInstructor second = DanceInstructor.builder()
             .name("test2")
-            .createdAt(LocalDateTime.MAX)
-            .lastModifiedAt(LocalDateTime.MAX)
+            .yearsOfExperience(1)
+            .createdAt(LocalDateTime.MIN)
+            .lastModifiedAt(LocalDateTime.MIN)
             .createdBy("test2")
             .lastModifiedBy("test2")
             .build();
