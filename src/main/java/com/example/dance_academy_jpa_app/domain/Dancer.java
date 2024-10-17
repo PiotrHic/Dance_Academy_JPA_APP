@@ -17,7 +17,7 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "Dancer_Table")
 @Entity
-public class Dancer {
+public class Dancer extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
