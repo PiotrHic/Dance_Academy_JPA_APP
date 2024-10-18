@@ -20,11 +20,19 @@ public class DancerRepositoryTest {
 
     Dancer first = Dancer.builder()
             .name("test1")
+            .createdAt(LocalDateTime.now())
+            .lastModifiedAt(LocalDateTime.now())
+            .createdBy("test1")
+            .lastModifiedBy("test1")
             .age(1)
             .build();
 
     Dancer second = Dancer.builder()
             .name("test2")
+            .createdAt(LocalDateTime.now())
+            .lastModifiedAt(LocalDateTime.now())
+            .createdBy("test2")
+            .lastModifiedBy("test2")
             .age(2)
             .build();
 

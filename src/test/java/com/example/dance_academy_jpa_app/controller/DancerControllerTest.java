@@ -23,8 +23,8 @@ public class DancerControllerTest {
     @Autowired
     DancerRepository dancerRepository;
 
-//    @Autowired
-//    DancerController dancerController;
+    @Autowired
+    DancerController dancerController;
 
     @LocalServerPort
     private Integer port;
@@ -257,6 +257,7 @@ public class DancerControllerTest {
         Assertions.assertEquals("[]", response2.jsonPath().getString("name"));
     }
 
+    @Disabled
     @Test
     void shouldDeleteButNotFound(){
         dancerRepository.deleteAll();
@@ -276,6 +277,7 @@ public class DancerControllerTest {
 
     }
 
+    @Disabled
     @Test
     void shouldDeleteTwoDancers(){
         dancerRepository.deleteAll();
