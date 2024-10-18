@@ -1,12 +1,14 @@
 package com.example.dance_academy_jpa_app.repository;
 
 
-import com.example.dance_academy_jpa_app.domain.DanceInstructor;
 import com.example.dance_academy_jpa_app.domain.Music;
+import com.example.dance_academy_jpa_app.repositories.MusicRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -17,12 +19,22 @@ public class MusicRepositoryTest {
     MusicRepository musicRepository;
 
     Music first = Music.builder()
+                .name("test1")
                 .nameOfTheSong("test1")
+                .createdAt(LocalDateTime.MIN)
+                .lastModifiedAt(LocalDateTime.MIN)
+                .createdBy("test2")
+                .lastModifiedBy("test2")
                 .build();
 
 
     Music second = Music.builder()
+            .name("test2")
             .nameOfTheSong("test2")
+            .createdAt(LocalDateTime.MIN)
+            .lastModifiedAt(LocalDateTime.MIN)
+            .createdBy("test2")
+            .lastModifiedBy("test2")
             .build();
 
     @BeforeEach
@@ -64,13 +76,13 @@ public class MusicRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        DanceInstructor saved = musicRepository.save(first);
+        Music saved = musicRepository.save(first);
 
         count = musicRepository.count();
 
         assertThat(count).isEqualTo(1);
 
-        DanceInstructor founded = musicRepository.getReferenceById(first.getId());
+        Music founded = musicRepository.getReferenceById(first.getId());
 
         assertThat(founded.getName()).isEqualTo("test1");
 

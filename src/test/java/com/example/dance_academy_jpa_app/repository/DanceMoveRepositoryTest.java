@@ -3,10 +3,13 @@ package com.example.dance_academy_jpa_app.repository;
 import com.example.dance_academy_jpa_app.domain.DanceInstructor;
 import com.example.dance_academy_jpa_app.domain.DanceMove;
 import com.example.dance_academy_jpa_app.domain.Music;
+import com.example.dance_academy_jpa_app.repositories.DanceMoveRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -18,11 +21,21 @@ public class DanceMoveRepositoryTest {
 
     DanceMove first = DanceMove.builder()
             .typeOfTheMove("test1")
+            .name("test1")
+            .createdAt(LocalDateTime.MIN)
+            .lastModifiedAt(LocalDateTime.MIN)
+            .createdBy("test2")
+            .lastModifiedBy("test2")
             .build();
 
 
     DanceMove second = DanceMove.builder()
             .typeOfTheMove("test2")
+            .name("test1")
+            .createdAt(LocalDateTime.MIN)
+            .lastModifiedAt(LocalDateTime.MIN)
+            .createdBy("test2")
+            .lastModifiedBy("test2")
             .build();
 
     @BeforeEach
@@ -64,13 +77,13 @@ public class DanceMoveRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        DanceInstructor saved = danceMoveRepository.save(first);
+        DanceMove saved = danceMoveRepository.save(first);
 
         count = danceMoveRepository.count();
 
         assertThat(count).isEqualTo(1);
 
-        DanceInstructor founded = danceMoveRepository.getReferenceById(first.getId());
+        DanceMove founded = danceMoveRepository.getReferenceById(first.getId());
 
         assertThat(founded.getName()).isEqualTo("test1");
 
