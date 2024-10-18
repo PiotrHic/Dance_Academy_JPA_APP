@@ -2,6 +2,7 @@ package com.example.dance_academy_jpa_app.service;
 
 import com.example.dance_academy_jpa_app.domain.Dancer;
 import com.example.dance_academy_jpa_app.repositories.DancerRepository;
+import com.example.dance_academy_jpa_app.service.dancer.DancerServiceImpl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -91,7 +92,7 @@ public class DancerServiceMockTest {
     public void getOneDancer() throws Exception{
 
         //stub the data
-        when(dancerRepository.getReferenceById(returned.getId())).thenReturn(returned);
+        when(dancerRepository.getById(returned.getId())).thenReturn(returned);
         Dancer result = dancerService.getDancer(returned.getId());
         Assertions.assertEquals("test", result.getName());
     }

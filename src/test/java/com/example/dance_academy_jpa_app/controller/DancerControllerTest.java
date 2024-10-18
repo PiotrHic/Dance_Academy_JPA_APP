@@ -23,8 +23,8 @@ public class DancerControllerTest {
     @Autowired
     DancerRepository dancerRepository;
 
-    @Autowired
-    DancerController dancerController;
+//    @Autowired
+//    DancerController dancerController;
 
     @LocalServerPort
     private Integer port;

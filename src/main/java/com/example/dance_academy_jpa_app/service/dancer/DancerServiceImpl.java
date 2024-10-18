@@ -1,6 +1,7 @@
 package com.example.dance_academy_jpa_app.service.dancer;
 
 import com.example.dance_academy_jpa_app.domain.Dancer;
+import com.example.dance_academy_jpa_app.exception.JPAEntityNotFoundException;
 import com.example.dance_academy_jpa_app.repositories.DancerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
