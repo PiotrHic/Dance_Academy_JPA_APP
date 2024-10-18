@@ -2,6 +2,7 @@ package com.example.dance_academy_jpa_app.service;
 
 import com.example.dance_academy_jpa_app.domain.DanceCourse;
 import com.example.dance_academy_jpa_app.repositories.DanceCourseRepository;
+import com.example.dance_academy_jpa_app.service.dancecourse.DanceCourseServiceImpl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

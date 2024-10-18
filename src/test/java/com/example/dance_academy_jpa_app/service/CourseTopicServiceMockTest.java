@@ -5,6 +5,7 @@ import com.example.dance_academy_jpa_app.domain.CourseTopic;
 import com.example.dance_academy_jpa_app.domain.DanceInstructor;
 import com.example.dance_academy_jpa_app.repositories.CourseTopicRepository;
 import com.example.dance_academy_jpa_app.repositories.DanceInstructorRepository;
+import com.example.dance_academy_jpa_app.service.courseTopic.CourseTopicServiceImpl;
 import com.example.dance_academy_jpa_app.service.danceInstructor.DanceInstructorServiceImpl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +30,7 @@ public class CourseTopicServiceMockTest {
     AutoCloseable autoCloseable;
 
     @InjectMocks
-    CourseTopicServiceImplementation courseTopicService;
+    CourseTopicServiceImpl courseTopicService;
 
     CourseTopic returned = CourseTopic.builder()
                     .name("test1")
@@ -72,7 +73,7 @@ public class CourseTopicServiceMockTest {
         //stub the data
         when(courseTopicRepository.save(returned)).thenReturn(returned);
 
-        DanceInstructor result = courseTopicService.createCourseTopic(returned);
+        CourseTopic result = courseTopicService.createTopic(returned);
         Assertions.assertEquals("test1", result.getName());
     }
 
@@ -82,7 +83,7 @@ public class CourseTopicServiceMockTest {
 
         //stub the data
         when(courseTopicRepository.getReferenceById(returned.getId())).thenReturn(returned);
-        DanceInstructor result = courseTopicService.getCourseTopicById(returned.getId());
+        CourseTopic result = courseTopicService.getCourseTopic(returned.getId());
         Assertions.assertEquals("test", result.getName());
     }
     @Test
@@ -105,9 +106,9 @@ public class CourseTopicServiceMockTest {
         when(courseTopicRepository.getReferenceById(first.getId())).thenReturn(first);
         when(courseTopicRepository.save(first)).thenReturn(first);
 
-        courseTopicService.createCourseTopic(first);
+        courseTopicService.createTopic(first);
 
-        DanceInstructor result = courseTopicService.updateCourseTopic(second.getId(), second);
+        CourseTopic result = courseTopicService.updateCourseTopic(second.getId(), second);
         Assertions.assertEquals("test2", result.getName());
 
     }
