@@ -1,6 +1,7 @@
 package com.example.dance_academy_jpa_app.repository;
 
 import com.example.dance_academy_jpa_app.domain.CourseTopic;
+import com.example.dance_academy_jpa_app.repositories.CourseTopicRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
