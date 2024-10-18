@@ -16,7 +16,7 @@ public class DanceCourseMapper {
                 .build();
     }
 
-    public DanceCourse danceInstructorDTOToDanceInstructor(DanceCourseDTO danceCourseDTO){
+    public DanceCourse danceCourseDTOToDanceCourse(DanceCourseDTO danceCourseDTO){
         return DanceCourse.builder()
                 .id(danceCourseDTO.getId())
                 .name(danceCourseDTO.getName())
