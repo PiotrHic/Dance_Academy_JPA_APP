@@ -10,11 +10,11 @@ public interface CourseTopicService {
 
     CourseTopic getCourseTopic(Integer id);
 
-    List<CourseTopic> getCourseTopics();
+    List<CourseTopic> getAllCourseTopics();
 
     CourseTopic updateCourseTopic(Integer id, CourseTopic courseTopic);
 
     String deleteCourseTopicByID(Integer id);
 
-    void deleteAllDancers();
+    void deleteAllCourseTopics();
 }
