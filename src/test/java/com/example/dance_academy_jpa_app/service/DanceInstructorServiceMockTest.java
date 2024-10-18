@@ -2,6 +2,7 @@ package com.example.dance_academy_jpa_app.service;
 
 import com.example.dance_academy_jpa_app.domain.DanceInstructor;
 import com.example.dance_academy_jpa_app.repositories.DanceInstructorRepository;
+import com.example.dance_academy_jpa_app.service.danceInstructor.DanceInstructorServiceImpl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -97,15 +98,15 @@ public class DanceInstructorServiceMockTest {
     }
 
     @Test
-    void getAllDanceInstructor(){
+    void getAllDanceInstructors(){
         // when
         when(danceInstructorRepository.findAll()).
                 thenReturn(Arrays.asList(first,
                         second));
 
         //then
-        List<DanceInstructor> dancers = danceInstructorService.getAllDanceInstructors();
-        Assertions.assertEquals(dancers.size(), 2);
+        List<DanceInstructor> danceInstructors = danceInstructorService.getAllDanceInstructors();
+        Assertions.assertEquals(danceInstructors.size(), 2);
     }
 
     @Disabled
