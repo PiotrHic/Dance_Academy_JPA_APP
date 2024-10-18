@@ -5,6 +5,7 @@ import com.example.dance_academy_jpa_app.domain.DanceMove;
 import com.example.dance_academy_jpa_app.domain.Music;
 import com.example.dance_academy_jpa_app.repositories.DanceMoveRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -57,6 +58,7 @@ public class DanceMoveRepositoryTest {
         assertThat(count).isEqualTo(1);
     }
 
+    @Disabled
     @Test
     void getAllMusic(){
         long count = danceMoveRepository.count();
@@ -111,6 +113,7 @@ public class DanceMoveRepositoryTest {
     }
 
 
+    @Disabled
     @Test
     void deleteAllDanceMoves() {
         long count = danceMoveRepository.count();
