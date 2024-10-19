@@ -54,7 +54,7 @@ public class DanceCourseServiceImpl implements DanceCourseService {
             throw new JPAEntityNotFoundException("Dance Course with id: " + id + " was not found!");
         }
         DanceCourse deleted = danceCourseRepository.getReferenceById(id);
-        String result = "Dance Course with id: " + deleted.getId() +" and name: " + deleted.getName();
+        String result = "Dance Course with id: " + deleted.getId() +" and name: " + deleted.getName() + " was deleted!";
         danceCourseRepository.deleteById(id);
         return result;
     }
