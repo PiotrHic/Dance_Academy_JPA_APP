@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseTopicMapper {
 
-    public CourseTopicDTO courseTopicTocourseTopicDTO(CourseTopic courseTopic){
+    public CourseTopicDTO courseTopicToCourseTopicDTO(CourseTopic courseTopic){
 
         return CourseTopicDTO.builder()
                 .id(courseTopic.getId())
@@ -15,7 +15,7 @@ public class CourseTopicMapper {
                 .build();
     }
 
-    public CourseTopic courseTopicToCourseTopicDTOr(CourseTopicDTO courseTopicDTO){
+    public CourseTopic courseTopicDTOToCourseTopic(CourseTopicDTO courseTopicDTO){
         return CourseTopic.builder()
                 .id(courseTopicDTO.getId())
                 .name(courseTopicDTO.getName())
