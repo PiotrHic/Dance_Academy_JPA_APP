@@ -58,7 +58,7 @@ public class CourseTopicServiceImpl implements CourseTopicService {
         CourseTopic deleted = courseTopicRepository.getById(id);
         String result = "Course Topic with id: " + deleted.getId() + " and name: " + deleted.getName() + " was deleted!";
         courseTopicRepository.deleteById(id);
-        return null;
+        return result;
     }
 
     @Override
