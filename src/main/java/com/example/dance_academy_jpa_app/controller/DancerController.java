@@ -4,6 +4,10 @@ import com.example.dance_academy_jpa_app.domain.Dancer;
 import com.example.dance_academy_jpa_app.dto.DancerDTO;
 import com.example.dance_academy_jpa_app.mapper.DancerMapper;
 import com.example.dance_academy_jpa_app.service.dancer.DancerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,10 @@ public class DancerController {
     private final String API_PATH_ID = "/{dancerID}";
     private final String ID_PATH = "dancerID";
 
+    @Operation(summary = "It adds a new Dancer to the database")
+    @ApiResponse(responseCode = "201",
+            description = "Add new Dancer to the database",
+            content = {@Content(mediaType =  "application/json")})
     @PostMapping
     ResponseEntity<DancerDTO> createDancer(@RequestBody DancerDTO dancerDTO){
         Dancer toSave = dancerService.createDancer(dancerMapper.dancerDTOToDancer(dancerDTO));
@@ -31,18 +39,41 @@ public class DancerController {
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(toSave), HttpStatus.valueOf(201));
     }
 
+
+    @Operation(summary = "It updates Dancer with the new data")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Update Dancer to the database",
+                    content = {@Content(mediaType =  "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Dancer was not found in database",
+                    content = {@Content(mediaType =  "application/json")}),
+    })
     @PutMapping(API_PATH_ID)
     ResponseEntity <DancerDTO> updateDancerById(@PathVariable(ID_PATH) Integer dancerID, @RequestBody DancerDTO dancerDTO) {
         Dancer updated = dancerService.updateDancer(dancerID, dancerMapper.dancerDTOToDancer(dancerDTO));
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(updated), HttpStatus.OK);
     }
 
+    @Operation(summary = "It brings one Dancer from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Get one Dancer from the database",
+                    content = {@Content(mediaType =  "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Dancer was not found in database",
+                    content = {@Content(mediaType =  "application/json")}),
+    })
     @GetMapping(API_PATH_ID)
     ResponseEntity <DancerDTO> getDancerById(@PathVariable(ID_PATH) Integer dancerID) {
         Dancer founded = dancerService.getDancer(dancerID);
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(founded), HttpStatus.OK);
     }
 
+    @Operation(summary = "Takes all Dancers from the database")
+    @ApiResponse(responseCode = "200",
+            description = "Gives all Dancers from the database",
+            content = {@Content(mediaType =  "application/json")})
     @GetMapping
     ResponseEntity <List<DancerDTO>> getAllDancers(){
         List<DancerDTO> dancerDTOs = dancerService
@@ -53,12 +84,25 @@ public class DancerController {
         return new ResponseEntity<>(dancerDTOs, HttpStatus.OK);
     }
 
+    @Operation(summary = "It deletes one Dancer from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Deletes one dancer from the database",
+                    content = {@Content(mediaType =  "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Dancer was not found in database",
+                    content = {@Content(mediaType =  "application/json")}),
+    })
     @DeleteMapping(API_PATH_ID)
     ResponseEntity <String> deleteDancerById(@PathVariable(ID_PATH) Integer dancerID){
         String deleted = dancerService.deleteDancer(dancerID);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 
+    @Operation(summary = "Deletes all Dancers from the database")
+    @ApiResponse(responseCode = "200",
+            description = "Deletes all Dancers from the database",
+            content = {@Content(mediaType =  "application/json")})
     @DeleteMapping()
     ResponseEntity <String> deleteAllDancers(){
         dancerService.deleteAllDancers();
