@@ -1,7 +1,8 @@
 package com.example.dance_academy_jpa_app.controller;
 
+import com.example.dance_academy_jpa_app.domain.CourseTopic;
 import com.example.dance_academy_jpa_app.domain.DanceInstructor;
-import com.example.dance_academy_jpa_app.repositories.DanceInstructorRepository;
+import com.example.dance_academy_jpa_app.repositories.CourseTopicRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -18,13 +19,13 @@ import java.time.LocalDateTime;
 import static io.restassured.RestAssured.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DanceInstructorControllerIssue {
+public class CourseTopicControllerTest {
 
     @Autowired
-    DanceInstructorRepository danceInstructorRepository;
+    CourseTopicRepository courseTopicRepository;
 
     @Autowired
-    DanceInstructorController danceInstructorController;
+    CourseTopicController courseTopicController;
 
     @LocalServerPort
     private Integer port;
@@ -40,7 +41,7 @@ public class DanceInstructorControllerIssue {
 
     @AfterAll
     static void afterAll() {
-        mySQLContainer .stop();
+        mySQLContainer.stop();
     }
 
     @DynamicPropertySource
@@ -51,34 +52,33 @@ public class DanceInstructorControllerIssue {
     }
 
     @BeforeEach
-    void setup(){
+    void setup() {
         RestAssured.baseURI = "http://localhost:" + port;
     }
 
+    private final String API = "/api/courseTopics";
 
-    DanceInstructor first = DanceInstructor.builder()
+    CourseTopic first = CourseTopic.builder()
             .name("test1")
             .createdAt(LocalDateTime.now())
             .lastModifiedAt(LocalDateTime.now())
             .createdBy("test1")
             .lastModifiedBy("test1")
-            .yearsOfExperience(1)
             .build();
 
-    DanceInstructor second = DanceInstructor.builder()
+    CourseTopic second = CourseTopic.builder()
             .name("test2")
             .createdAt(LocalDateTime.now())
             .lastModifiedAt(LocalDateTime.now())
             .createdBy("test2")
             .lastModifiedBy("test2")
-            .yearsOfExperience(2)
             .build();
 
     @Disabled
     @Test
-    void shouldSaveOneDanceInstructor() {
+    void shouldSaveOneCourseTopic() {
 
-        danceInstructorRepository.deleteAll();
+        courseTopicRepository.deleteAll();
 
         String requestBody = "{\n" +
                 "  \"name\": \"test1\",\n" +
@@ -93,7 +93,7 @@ public class DanceInstructorControllerIssue {
                 .and()
                 .body(requestBody)
                 .when()
-                .post("/api/danceInstructors")
+                .post(API)
                 .then()
                 .extract().response();
 
@@ -110,21 +110,21 @@ public class DanceInstructorControllerIssue {
 
     @Disabled
     @Test
-    void updateOneDanceInstructor(){
-        danceInstructorRepository.deleteAll();
+    void updateOneCourseTopic(){
+        courseTopicRepository.deleteAll();
 
-        danceInstructorRepository.save(first);
+        courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/danceInstructors")
+                .get(API)
                 .then()
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
         Assertions.assertEquals("[test1]", response.jsonPath().getString("name"));
-;
+        ;
 
         String id = first.getId().toString();
 
@@ -139,7 +139,7 @@ public class DanceInstructorControllerIssue {
                 .and()
                 .body(requestBody)
                 .when()
-                .put("/api/dancers/" + id)
+                .put(API + "/" + id)
                 .then()
                 .extract().response();
 
@@ -152,25 +152,24 @@ public class DanceInstructorControllerIssue {
         Response response2 = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/dancers")
+                .get(API)
                 .then()
                 .extract().response();
 
         Assertions.assertEquals(200, response2.statusCode());
         Assertions.assertEquals("[Put]", response2.jsonPath().getString("name"));
-
     }
 
     @Disabled
     @Test
-    void shouldFindOneDanceInstructor(){
-        danceInstructorRepository.deleteAll();
-        DanceInstructor saved = danceInstructorRepository.save(first);
+    void shouldFindOneCourseTopic(){
+        courseTopicRepository.deleteAll();
+        CourseTopic saved = courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/danceInstructors/" + saved.getId())
+                .get(API + "/" + saved.getId())
                 .then()
                 .extract().response();
 
@@ -180,16 +179,15 @@ public class DanceInstructorControllerIssue {
         Assertions.assertEquals("test1", response.jsonPath().getString("name"));
     }
 
-
     @Test
-    void NotFoundDanceInstructor(){
-        danceInstructorRepository.deleteAll();
-        DanceInstructor saved = danceInstructorRepository.save(first);
+    void NotFoundCourseTopic(){
+        courseTopicRepository.deleteAll();
+        CourseTopic saved = courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/dancerInstructors/" + (saved.getId() +10))
+                .get(API + "/" + (saved.getId() +10))
                 .then()
                 .extract().response();
 
@@ -201,15 +199,15 @@ public class DanceInstructorControllerIssue {
 
     @Disabled
     @Test
-    void shouldFindTwoDanceInstructors(){
-        danceInstructorRepository.deleteAll();
-        danceInstructorRepository.save(first);
-        danceInstructorRepository.save(second);
+    void shouldFindTwoCourseTopics(){
+        courseTopicRepository.deleteAll();
+        courseTopicRepository.save(first);
+        courseTopicRepository.save(second);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/dancerInstructors")
+                .get(API)
                 .then()
                 .extract().response();
 
@@ -220,14 +218,14 @@ public class DanceInstructorControllerIssue {
     @Disabled
     @DisplayName("DeleteById Test")
     @Test
-    void shouldDeleteOneDanceInstructor(){
-        danceInstructorRepository.deleteAll();
-        DanceInstructor saved = danceInstructorRepository.save(first);
+    void shouldDeleteOneCouseTopic(){
+        courseTopicRepository.deleteAll();
+        DanceInstructor saved = courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .delete("/api/dancerInstructors/" + saved.getId())
+                .delete(API + "/" + saved.getId())
                 .then()
                 .extract().response();
 
@@ -239,7 +237,7 @@ public class DanceInstructorControllerIssue {
         Response response2 = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/dancers")
+                .get(API)
                 .then()
                 .extract().response();
 
@@ -249,13 +247,13 @@ public class DanceInstructorControllerIssue {
 
     @Test
     void shouldDeleteButNotFound(){
-        danceInstructorRepository.deleteAll();
-        DanceInstructor saved = danceInstructorRepository.save(first);
+        courseTopicRepository.deleteAll();
+        DanceInstructor saved = courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .delete("/api/dancerInstructors/" + (saved.getId() + 10))
+                .delete(API + "/" + (saved.getId() + 10))
                 .then()
                 .extract().response();
 
@@ -267,15 +265,15 @@ public class DanceInstructorControllerIssue {
 
     @Disabled
     @Test
-    void shouldDeleteTwoDancers(){
-        danceInstructorRepository.deleteAll();
-        danceInstructorRepository.save(first);
-        danceInstructorRepository.save(second);
+    void shouldDeleteDanceCourses(){
+        courseTopicRepository.deleteAll();
+        courseTopicRepository.save(first);
+        courseTopicRepository.save(second);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/dancerInstructors")
+                .get(API)
                 .then()
                 .extract().response();
 
@@ -284,7 +282,7 @@ public class DanceInstructorControllerIssue {
         Response response1 = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .delete("/api/dancerInstructors")
+                .delete(API)
                 .then()
                 .extract().response();
 
@@ -295,7 +293,7 @@ public class DanceInstructorControllerIssue {
         Response response2 = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/dancerInstructors")
+                .get(API)
                 .then()
                 .extract().response();
 
@@ -305,8 +303,8 @@ public class DanceInstructorControllerIssue {
     @Disabled
     @Test
     void UpdateWithBadData(){
-        danceInstructorRepository.deleteAll();
-        DanceInstructor saved = danceInstructorRepository.save(first);
+        courseTopicRepository.deleteAll();
+        CourseTopic saved = courseTopicRepository.save(first);
 
         String badId = String.valueOf(saved.getId() +1000000);
 
@@ -314,13 +312,12 @@ public class DanceInstructorControllerIssue {
                 "  \"id\": \"" + badId + "\",\n" +
                 "  \"name\": \"Bad data\",\n}";
 
-
         Response response = given()
                 .contentType(ContentType.JSON)
                 .and()
                 .body(requestBody)
                 .when()
-                .put("/api/dancerInstructors/" + badId)
+                .put(API + "/" + badId)
                 .then()
                 .extract().response();
 
