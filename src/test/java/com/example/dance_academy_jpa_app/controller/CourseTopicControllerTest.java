@@ -220,7 +220,7 @@ public class CourseTopicControllerTest {
     @Test
     void shouldDeleteOneCouseTopic(){
         courseTopicRepository.deleteAll();
-        DanceInstructor saved = courseTopicRepository.save(first);
+        CourseTopic saved = courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -248,7 +248,7 @@ public class CourseTopicControllerTest {
     @Test
     void shouldDeleteButNotFound(){
         courseTopicRepository.deleteAll();
-        DanceInstructor saved = courseTopicRepository.save(first);
+        CourseTopic saved = courseTopicRepository.save(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)

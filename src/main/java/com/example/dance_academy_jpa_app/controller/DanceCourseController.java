@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("/api/danceCourses")
 public class DanceCourseController {
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(DanceCourseController.class);
 
     private final DanceCourseService danceCourseService;
 
@@ -38,7 +43,7 @@ public class DanceCourseController {
     ResponseEntity<DanceCourseDTO> createDanceCourse(@RequestBody DanceCourseDTO danceCourseDTO){
         DanceCourse toSave = danceCourseService
                 .createDanceCourse(danceCourseMapper.danceCourseDTOToDanceCourse(danceCourseDTO));
-
+        LOGGER.info("Dance Course was saved in the DB : {}", toSave.getName());
         return new ResponseEntity<>(danceCourseMapper.danceCourseToDanceCourseDTO(toSave),
                 HttpStatus.valueOf(201));
     }
@@ -57,6 +62,7 @@ public class DanceCourseController {
             , @RequestBody DanceCourseDTO danceCourseDTO) {
         DanceCourse updated = danceCourseService.updateDanceCourse(danceCourseID,
                 danceCourseMapper.danceCourseDTOToDanceCourse(danceCourseDTO));
+        LOGGER.info("Dance Course was updated in the DB : {}", updated.getName());
         return new ResponseEntity<>(danceCourseMapper.danceCourseToDanceCourseDTO(updated), HttpStatus.OK);
     }
 
@@ -72,6 +78,7 @@ public class DanceCourseController {
     @GetMapping(API_PATH_ID)
     ResponseEntity <DanceCourseDTO> getDanceCourseById(@PathVariable(ID_PATH) Integer danceCourseID) {
         DanceCourse founded = danceCourseService.getDanceCourse(danceCourseID);
+        LOGGER.info("Dance Course was funded in the DB : {}", founded.getName());
         return new ResponseEntity<>(danceCourseMapper.danceCourseToDanceCourseDTO(founded), HttpStatus.OK);
     }
 
@@ -86,6 +93,7 @@ public class DanceCourseController {
                 .stream()
                 .map(danceCourseMapper::danceCourseToDanceCourseDTO)
                 .collect(Collectors.toList());
+        LOGGER.info("All Dance Courses were found: size {}", dancerCourseDTOs.size());
         return new ResponseEntity<>(dancerCourseDTOs, HttpStatus.OK);
     }
 
@@ -101,6 +109,7 @@ public class DanceCourseController {
     @DeleteMapping(API_PATH_ID)
     ResponseEntity <String> deleteDanceCourseById(@PathVariable(ID_PATH) Integer danceCourseID){
         String deleted = danceCourseService.deleteDanceCourse(danceCourseID);
+        LOGGER.info("Dance Course was deleted from the  DB : id {}", danceCourseID);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 
@@ -111,6 +120,7 @@ public class DanceCourseController {
     @DeleteMapping()
     ResponseEntity <String> deleteAllDancers(){
         danceCourseService.deleteAllDanceCourses();
+        LOGGER.info("Dance Courses were deleted from the DB");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 

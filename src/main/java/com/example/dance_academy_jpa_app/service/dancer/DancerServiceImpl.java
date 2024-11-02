@@ -3,7 +3,10 @@ package com.example.dance_academy_jpa_app.service.dancer;
 import com.example.dance_academy_jpa_app.domain.Dancer;
 import com.example.dance_academy_jpa_app.exception.JPAEntityNotFoundException;
 import com.example.dance_academy_jpa_app.repositories.DancerRepository;
+import com.example.dance_academy_jpa_app.service.courseTopic.CourseTopicServiceImpl;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class DancerServiceImpl implements DancerService {
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(DancerServiceImpl.class);
 
     private final DancerRepository dancerRepository;
     @Override
@@ -21,6 +27,7 @@ public class DancerServiceImpl implements DancerService {
     @Override
     public Dancer getDancer(Integer id) {
         if(!dancerRepository.existsById(id)){
+            LOGGER.info("Dancer was not found!");
             throw new JPAEntityNotFoundException("Dancer with id: " + id + " was not found!");
         }
         return dancerRepository.getById(id);
@@ -34,6 +41,7 @@ public class DancerServiceImpl implements DancerService {
     @Override
     public Dancer updateDancer(Integer id, Dancer dancer) {
         if(!dancerRepository.existsById(id)){
+            LOGGER.info("Dancer was not found!");
             throw new JPAEntityNotFoundException("Dancer with id: " + id + " was not found!");
         }
         Dancer toUpdate = dancerRepository.getReferenceById(id);
@@ -50,6 +58,7 @@ public class DancerServiceImpl implements DancerService {
     @Override
     public String deleteDancer(Integer id) {
         if(!dancerRepository.existsById(id)){
+            LOGGER.info("Dancer was not found!");
             throw new JPAEntityNotFoundException("Dancer with id: " + id + " was not found!");
         }
         Dancer deleted = dancerRepository.getById(id);

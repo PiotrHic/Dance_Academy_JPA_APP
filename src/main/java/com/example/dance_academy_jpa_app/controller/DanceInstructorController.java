@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("/api/danceInstructors")
 public class DanceInstructorController {
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(DanceInstructorController.class);
 
     private final DanceInstructorService danceInstructorService;
 
@@ -34,7 +39,7 @@ public class DanceInstructorController {
     ResponseEntity<DanceInstructorDTO> createDanceInstructor(@RequestBody DanceInstructorDTO danceInstructorDTO){
         DanceInstructor toSave = danceInstructorService
                 .createDanceInstructor(danceInstructorMapper.danceInstructorDTOToDanceInstructor(danceInstructorDTO));
-
+        LOGGER.info("Dance Instructor was saved in the DB : {}", toSave.getName());
         return new ResponseEntity<>(danceInstructorMapper.danceInstructorToDanceInstructorDTO(toSave),
                 HttpStatus.valueOf(201));
     }
@@ -52,6 +57,7 @@ public class DanceInstructorController {
             , @RequestBody DanceInstructorDTO danceInstructorDTO) {
         DanceInstructor updated = danceInstructorService.updateDanceInstructor(danceInstructorID,
                 danceInstructorMapper.danceInstructorDTOToDanceInstructor(danceInstructorDTO));
+        LOGGER.info("Dance Instructor was updated in the DB : {}", updated.getName());
         return new ResponseEntity<>(danceInstructorMapper.danceInstructorToDanceInstructorDTO(updated), HttpStatus.OK);
     }
 
@@ -68,6 +74,7 @@ public class DanceInstructorController {
     @GetMapping("/{danceInstructorID}")
     ResponseEntity <DanceInstructorDTO> getDanceInstructorById(@PathVariable("danceInstructorID") Integer danceInstructorID) {
         DanceInstructor founded = danceInstructorService.getDanceInstructor(danceInstructorID);
+        LOGGER.info("Dance Instructor was funded in the DB : {}", founded.getName());
         return new ResponseEntity<>(danceInstructorMapper.danceInstructorToDanceInstructorDTO(founded), HttpStatus.OK);
     }
     @Operation(summary = "Takes all Dance Instructors from the database")
@@ -81,6 +88,7 @@ public class DanceInstructorController {
                 .stream()
                 .map(danceInstructorMapper::danceInstructorToDanceInstructorDTO)
                 .collect(Collectors.toList());
+        LOGGER.info("All Dancer Instructors were found: size {}", dancerInstructorDTOs.size());
         return new ResponseEntity<>(dancerInstructorDTOs, HttpStatus.OK);
     }
 
@@ -96,6 +104,7 @@ public class DanceInstructorController {
     @DeleteMapping("/{danceInstructorID}")
     ResponseEntity <String> deleteDanceInstructorById(@PathVariable("danceInstructorID") Integer danceInstructorID){
         String deleted = danceInstructorService.deleteDanceInstructor(danceInstructorID);
+        LOGGER.info("Dance Instructor was deleted from the  DB : id {}", danceInstructorID);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 
@@ -106,6 +115,7 @@ public class DanceInstructorController {
     @DeleteMapping()
     ResponseEntity <String> deleteAllDancers(){
         danceInstructorService.deleteAllDanceInstructors();
+        LOGGER.info("Dancer Instructors were deleted from the DB");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 }

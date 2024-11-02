@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("/api/courseTopics")
 public class CourseTopicController {
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(CourseTopicController.class);
 
     private final CourseTopicService courseTopicService;
     private final CourseTopicMapper courseTopicMapper;
@@ -38,7 +43,7 @@ public class CourseTopicController {
     ResponseEntity<CourseTopicDTO> createCourseTopic(@RequestBody CourseTopicDTO courseTopicDTO){
         CourseTopic toSave = courseTopicService
                 .createTopic(courseTopicMapper.courseTopicDTOToCourseTopic(courseTopicDTO));
-
+        LOGGER.info("Course Topic was saved in the DB : {}", toSave.getName());
         return new ResponseEntity<>(courseTopicMapper.courseTopicToCourseTopicDTO(toSave),
                 HttpStatus.valueOf(201));
     }
@@ -56,6 +61,7 @@ public class CourseTopicController {
                                                      @RequestBody CourseTopicDTO courseTopicDTO) {
         CourseTopic updated = courseTopicService.updateCourseTopic(courseTopicID,
                 courseTopicMapper.courseTopicDTOToCourseTopic(courseTopicDTO));
+        LOGGER.info("Course Topic was updated in the DB : {}", updated.getName());
         return new ResponseEntity<>(courseTopicMapper.courseTopicToCourseTopicDTO(updated), HttpStatus.OK);
     }
 
@@ -71,6 +77,7 @@ public class CourseTopicController {
     @GetMapping(API_PATH_ID)
     ResponseEntity <CourseTopicDTO> getCourseTopicById(@PathVariable(ID_PATH) Integer courseTopicID) {
         CourseTopic founded = courseTopicService.getCourseTopic(courseTopicID);
+        LOGGER.info("Course Topic was funded in the DB : {}", founded.getName());
         return new ResponseEntity<>(courseTopicMapper.courseTopicToCourseTopicDTO(founded), HttpStatus.OK);
     }
     @Operation(summary = "Takes all Course Topics from the database")
@@ -84,6 +91,7 @@ public class CourseTopicController {
                 .stream()
                 .map(courseTopicMapper::courseTopicToCourseTopicDTO)
                 .collect(Collectors.toList());
+        LOGGER.info("All Course Topics were found: size {}", courseTopicDTOs.size());
         return new ResponseEntity<>(courseTopicDTOs, HttpStatus.OK);
     }
 
@@ -99,6 +107,7 @@ public class CourseTopicController {
     @DeleteMapping(API_PATH_ID)
     ResponseEntity <String> deleteCourseTopicById(@PathVariable(ID_PATH) Integer courseTopicID){
         String deleted = courseTopicService.deleteCourseTopicByID(courseTopicID);
+        LOGGER.info("Course Topic was deleted from the  DB : id {}", courseTopicID);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 
@@ -109,6 +118,7 @@ public class CourseTopicController {
     @DeleteMapping()
     ResponseEntity <String> deleteAllDancers(){
         courseTopicService.deleteAllCourseTopics();
+        LOGGER.info("Course Topics were deleted from the DB");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 

@@ -79,6 +79,22 @@ public class CourseTopicServiceMockTest {
 
     @Disabled
     @Test
+    void updateCourseTopic(){
+
+
+        //stub the data
+        when(courseTopicRepository.getReferenceById(first.getId())).thenReturn(first);
+        when(courseTopicRepository.save(first)).thenReturn(first);
+
+        courseTopicService.createTopic(first);
+
+        CourseTopic result = courseTopicService.updateCourseTopic(second.getId(), second);
+        Assertions.assertEquals("test2", result.getName());
+
+    }
+
+    @Disabled
+    @Test
     public void getOneCourseTopic() throws Exception{
 
         //stub the data
@@ -96,21 +112,6 @@ public class CourseTopicServiceMockTest {
         //then
         List<CourseTopic> courseTopics = courseTopicService.getAllCourseTopics();
         Assertions.assertEquals(courseTopics.size(), 2);
-    }
-    @Disabled
-    @Test
-    void updateCourseTopic(){
-
-
-        //stub the data
-        when(courseTopicRepository.getReferenceById(first.getId())).thenReturn(first);
-        when(courseTopicRepository.save(first)).thenReturn(first);
-
-        courseTopicService.createTopic(first);
-
-        CourseTopic result = courseTopicService.updateCourseTopic(second.getId(), second);
-        Assertions.assertEquals("test2", result.getName());
-
     }
 
     @Disabled

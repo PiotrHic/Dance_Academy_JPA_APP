@@ -4,6 +4,8 @@ import com.example.dance_academy_jpa_app.domain.CourseTopic;
 import com.example.dance_academy_jpa_app.exception.JPAEntityNotFoundException;
 import com.example.dance_academy_jpa_app.repositories.CourseTopicRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class CourseTopicServiceImpl implements CourseTopicService {
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(CourseTopicServiceImpl.class);
 
     private final CourseTopicRepository courseTopicRepository;
     @Override
@@ -20,7 +25,9 @@ public class CourseTopicServiceImpl implements CourseTopicService {
 
     @Override
     public CourseTopic getCourseTopic(Integer id) {
+
         if(!courseTopicRepository.existsById(id)){
+            LOGGER.info("Course Topic was not found!");
             throw new JPAEntityNotFoundException("Course Topic with id " + id + " was not found!");
         }
         return courseTopicRepository.getById(id);
@@ -35,6 +42,7 @@ public class CourseTopicServiceImpl implements CourseTopicService {
     public CourseTopic updateCourseTopic(Integer id, CourseTopic courseTopic) {
 
         if(!courseTopicRepository.existsById(id)){
+            LOGGER.info("Course Topic was not found!");
             throw new JPAEntityNotFoundException("Course Topic with id " + id + " was not found!");
         }
 
@@ -52,6 +60,7 @@ public class CourseTopicServiceImpl implements CourseTopicService {
     public String deleteCourseTopicByID(Integer id) {
 
         if(!courseTopicRepository.existsById(id)){
+            LOGGER.info("Course Topic was not found!");
             throw new JPAEntityNotFoundException("Course Topic with id " + id + " was not found!");
         }
 
